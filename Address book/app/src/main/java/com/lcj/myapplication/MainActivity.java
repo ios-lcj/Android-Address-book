@@ -29,6 +29,7 @@ import com.lcj.myapplication.adapter.ContactAdapter;
 import com.lcj.myapplication.databinding.ActivityMainBinding;
 import com.lcj.myapplication.pojo.Contact;
 import com.lcj.myapplication.view.CustomOperateDialogView;
+import com.lcj.myapplication.view.PopWindowView;
 import com.lcj.myapplication.view.SideBarView;
 import com.xujiaji.happybubble.Auto;
 import com.xujiaji.happybubble.BubbleDialog;
@@ -149,8 +150,9 @@ public class MainActivity extends AppCompatActivity {
         View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.bubble_dialog, null, false);
         Button btn_xixi = (Button) view.findViewById(R.id.buttonDelete);
         //1.构造一个PopupWindow，参数依次是加载的View，宽高
-        final PopupWindow popWindow = new PopupWindow(view,
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        final PopWindowView popWindow = new PopWindowView(MainActivity.this, view);
+
+//                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
         popWindow.setAnimationStyle(R.anim.anim_pop);  //设置加载动画
 
@@ -171,13 +173,11 @@ public class MainActivity extends AppCompatActivity {
                 // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
             }
         });
-        popWindow.setHeight(200);
-        popWindow.setBackgroundDrawable(new ColorDrawable(0xBDBFC1));
-        popWindow.getBackground().setAlpha(100);    //要为popWindow设置一个背景才有效
-
+        popWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        popWindow.getBackground().setAlpha(0);    //要为popWindow设置一个背景才有效
 
         //设置popupWindow显示的位置，参数依次是参照View，x轴的偏移量，y轴的偏移量
-        popWindow.showAsDropDown(v, 800, 0);
+        popWindow.showUp2(v, 300, 50);
 
         //设置popupWindow里的按钮的事件
         btn_xixi.setOnClickListener(new View.OnClickListener() {
